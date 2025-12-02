@@ -3,6 +3,13 @@
    Everything else is handled by Tailwind
    ============================================ */
 
+/* Tailwind CDN gradient variable fix */
+*, ::before, ::after {
+    --tw-gradient-from-position: ;
+    --tw-gradient-via-position: ;
+    --tw-gradient-to-position: ;
+}
+
 /* Reset - Tailwind's preflight handles most of this */
 html {
     scroll-behavior: smooth;
