@@ -1,29 +1,14 @@
 /* ============================================
-   MINIMAL CUSTOM CSS - Only what Tailwind can't do
+   MINIMAL CSS - Only pseudo-elements & states
+   Everything else is handled by Tailwind
    ============================================ */
 
-/* Reset */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Reset - Tailwind's preflight handles most of this */
 html {
     scroll-behavior: smooth;
 }
 
-/* Shimmer animation for search container */
-.shimmer-line {
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(200%); }
-}
-
-/* Navigation tab active underline (pseudo-element) */
+/* Navigation tab active underline (pseudo-element - can't do in Tailwind) */
 .nav-tab.active::after {
     content: '';
     position: absolute;
@@ -35,19 +20,13 @@ html {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-/* View section toggling */
+/* View section toggling (display states) */
 .view-section {
     display: none;
 }
 
 .view-section.active {
     display: block;
-    animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 /* Paper card gold accent bar (pseudo-element) */
@@ -72,12 +51,12 @@ html {
     transform: scaleY(1);
 }
 
-/* Sources panel slide-out */
+/* Sources panel slide-out state */
 .sources-panel.open {
     right: 0 !important;
 }
 
-/* Modal visibility */
+/* Modal visibility states */
 .modal:not(.hidden) {
     opacity: 1 !important;
     pointer-events: auto !important;
@@ -90,79 +69,4 @@ html {
 /* Writer actions visibility */
 #writerActions:not(.hidden) {
     display: flex !important;
-}
-
-/* ============================================
-   TUTORIAL SPOTLIGHT EFFECTS
-   ============================================ */
-
-#tutorialOverlay {
-    perspective: 1000px;
-}
-
-/* Lighter overlay - 50% instead of 85% so users can see context */
-#tutorialSpotlight {
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.50),
-                0 0 30px rgba(212, 175, 55, 0.5);
-    animation: spotlightPulse 2s ease-in-out infinite;
-}
-
-@keyframes spotlightPulse {
-    0%, 100% { 
-        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.50),
-                    0 0 30px rgba(212, 175, 55, 0.4);
-    }
-    50% { 
-        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.50),
-                    0 0 50px rgba(212, 175, 55, 0.7);
-    }
-}
-
-/* Fixed position card - always bottom right */
-#tutorialCard {
-    position: fixed !important;
-    bottom: 100px !important;
-    right: 30px !important;
-    top: auto !important;
-    left: auto !important;
-    width: 340px !important;
-    max-width: calc(100vw - 60px);
-    animation: cardSlideIn 0.5s ease-out;
-    backdrop-filter: blur(10px);
-}
-
-@keyframes cardSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Floating help button pulse */
-#startTutorialBtn {
-    animation: helpPulse 3s ease-in-out infinite;
-}
-
-@keyframes helpPulse {
-    0%, 100% { 
-        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-    50% { 
-        box-shadow: 0 4px 25px rgba(212, 175, 55, 0.6),
-                    0 0 40px rgba(212, 175, 55, 0.2);
-    }
-}
-
-/* Mobile responsive */
-@media (max-width: 640px) {
-    #tutorialCard {
-        bottom: 20px !important;
-        right: 10px !important;
-        left: 10px !important;
-        width: auto !important;
-    }
 }
