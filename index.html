@@ -743,7 +743,136 @@
         </footer>
     </div>
 
+    <!-- Analytics Dashboard (Hidden) -->
+    <div id="analyticsPanel" class="fixed inset-0 z-[10000] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+        <div class="relative h-full overflow-auto p-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gold-400 ">📊 EssayGPT Analytics</h1>
+                        <p class="text-gold-200/60 text-sm mt-1">Real-time usage statistics</p>
+                    </div>
+                    <button id="closeAnalytics" class="text-4xl text-gold-200/60 hover:text-white transition-colors">&times;</button>
+                </div>
+                
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-gold-400" id="stat-totalVisitors">0</div>
+                        <div class="text-gold-200/60 text-sm">Total Visitors</div>
+                    </div>
+                    <div class="bg-navy-800 border border-emerald-500/30 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-emerald-400" id="stat-totalSessions">0</div>
+                        <div class="text-gold-200/60 text-sm">Total Sessions</div>
+                    </div>
+                    <div class="bg-navy-800 border border-blue-500/30 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-blue-400" id="stat-totalSearches">0</div>
+                        <div class="text-gold-200/60 text-sm">Searches Made</div>
+                    </div>
+                    <div class="bg-navy-800 border border-purple-500/30 rounded-xl p-4">
+                        <div class="text-3xl font-bold text-purple-400" id="stat-totalEssays">0</div>
+                        <div class="text-gold-200/60 text-sm">Essays Generated</div>
+                    </div>
+                </div>
+                
+                <!-- Feature Usage -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">📈 Feature Usage</h3>
+                        <div class="space-y-3" id="featureUsageStats">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gold-200/80">🔍 Searches</span>
+                                <span class="text-gold-400 font-semibold" id="feat-searches">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gold-200/80">✨ Essays Generated</span>
+                                <span class="text-gold-400 font-semibold" id="feat-essays">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gold-200/80">📋 Summaries Made</span>
+                                <span class="text-gold-400 font-semibold" id="feat-summaries">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gold-200/80">🔬 AI Detections Run</span>
+                                <span class="text-gold-400 font-semibold" id="feat-detections">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gold-200/80">📚 Sources Added</span>
+                                <span class="text-gold-400 font-semibold" id="feat-sources">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">🌍 Top Locations</h3>
+                        <div class="space-y-2" id="topLocations">
+                            <p class="text-gray-500 text-sm">Loading location data...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Browsers & Devices -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">🌐 Browsers</h3>
+                        <div class="space-y-2" id="browserStats">
+                            <p class="text-gray-500 text-sm">No data yet</p>
+                        </div>
+                    </div>
+                    <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4">📱 Devices</h3>
+                        <div class="space-y-2" id="deviceStats">
+                            <p class="text-gray-500 text-sm">No data yet</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Visitors Table -->
+                <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6 mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-white">👥 Recent Visitors</h3>
+                        <div class="flex gap-2">
+                            <button id="exportAnalyticsCSV" class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-sm hover:bg-emerald-500/30 transition-colors">
+                                📥 Export CSV
+                            </button>
+                            <button id="clearAnalyticsData" class="px-3 py-1 bg-red-500/20 text-red-400 rounded-lg text-sm hover:bg-red-500/30 transition-colors">
+                                🗑️ Clear Data
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-gold-200/60 border-b border-gold-400/10">
+                                    <th class="text-left py-3 px-2">Time</th>
+                                    <th class="text-left py-3 px-2">IP Address</th>
+                                    <th class="text-left py-3 px-2">Location</th>
+                                    <th class="text-left py-3 px-2">Browser</th>
+                                    <th class="text-left py-3 px-2">Device</th>
+                                    <th class="text-left py-3 px-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitorsTableBody" class="text-gold-200/80">
+                                <tr><td colspan="6" class="py-4 text-center text-gray-500">No visitors recorded yet</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Session Activity -->
+                <div class="bg-navy-800 border border-gold-400/20 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-white mb-4">⏱️ Session Timeline</h3>
+                    <div class="space-y-2 max-h-[300px] overflow-y-auto" id="sessionTimeline">
+                        <p class="text-gray-500 text-sm">No activity recorded yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
+    <script src="analytics.js"></script>
     <script src="script.js"></script>
     <!-- Tutorial Overlay -->
     <div id="tutorialOverlay" class="fixed inset-0 z-[9999] hidden">

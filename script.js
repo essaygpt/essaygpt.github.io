@@ -604,6 +604,15 @@ async function generateDraft() {
     // Save API key
     saveApiKey();
 
+    // Track essay generation analytics
+    if (window.Analytics) {
+        window.Analytics.trackEvent('essay_generated', { 
+            length: length, 
+            style: style, 
+            sources: selectedSources.length 
+        });
+    }
+
     // Set up UI for generation
     isGenerating = true;
     abortController = new AbortController();
@@ -1152,6 +1161,11 @@ function addToSources(paperId) {
         saveSourcestoStorage();
         updateSourcesUI();
         showToast('Added to sources!');
+        
+        // Track source addition analytics
+        if (window.Analytics) {
+            window.Analytics.trackEvent('source_added', { source: paper.source || 'unknown' });
+        }
 
         const btn = document.querySelector(`button[onclick*="${paperId}"]`);
         if (btn && btn.textContent.includes('Add')) {
@@ -1295,6 +1309,10 @@ function performSearch() {
         alert('Please enter a search query');
         searchInput.focus();
         return;
+    }
+    // Track search analytics
+    if (window.Analytics) {
+        window.Analytics.trackEvent('search', { query: query.substring(0, 50) });
     }
     aggregateResults(query);
 }
@@ -2103,6 +2121,11 @@ async function runAllDetectors() {
     if (isAnalyzing) return;
     isAnalyzing = true;
     
+    // Track AI detection analytics
+    if (window.Analytics) {
+        window.Analytics.trackEvent('ai_detection', { wordCount: wordCount });
+    }
+    
     // Update UI
     analyzeBtn.disabled = true;
     document.getElementById('analyzeBtnIcon').textContent = '⏳';
@@ -2434,6 +2457,11 @@ async function summarizeText() {
     if (!apiKey) {
         showToast('Please set your API key in the Writer tab first');
         return;
+    }
+    
+    // Track summary analytics
+    if (window.Analytics) {
+        window.Analytics.trackEvent('summary_created', { mode: currentSummaryMode, charCount: text.length });
     }
     
     // Set loading state
